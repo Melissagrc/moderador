@@ -11,7 +11,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: var(--fuente-principal);    
+    font-family: var(--fuente-principal);
 }
 
 /*
@@ -290,7 +290,7 @@ html, body{
     left:100px; /*left*/
     top:120px; /*bottom*/
     width:500px;/*anchura del elemto*/
-    height:380px;/*altura del elemento*/ 
+    height:380px;/*altura del elemento*/
     background-color: #E8FFE6;
 }
 .archivo{
@@ -303,7 +303,7 @@ html, body{
     left:680px; /*left*/
     top:120px; /*bottom*/
     width:600px;/*anchura del elemto*/
-    height:380px;/*altura del elemento*/ 
+    height:380px;/*altura del elemento*/
 }
 /*
 .continuar{
@@ -430,4 +430,34 @@ input[type=checkbox]
     margin-right: 30px;
     padding: 30px;
     border-radius: 30px;
+}
+/*---------------------- formato hora -----------------------*/
+.resultado-horarios{
+    width: 70%;margin: auto;
+    display: flex;
+    justify-content: space-around;
+}
+.result_horarios{
+    min-width: 500px;
+    border: #022422 solid 3px;/*linea del cuadro*/
+    background: #E8FFE6;/*fondo del cuadro*/
+    text-align: center;/*texto centado*/
+
+}
+.result_horarios{
+    margin-right: 30px;
+    padding: 30px;
+    border-radius: 30px;
+
+}
+.formato_al_texto{
+    font-weight: bold;/*formato en negritas*/
+
+}
+
+.fondo_hora{
+    background: var(--verde-fuerte);
+
+    border-radius: 10px;
+    color: #fff;
 }

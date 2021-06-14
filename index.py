@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, url_for, make_response
 from werkzeug.utils import secure_filename
 from typing import *
 import modulo2
-import pdfkit
+#import pdfkit
 import os
 
 # lista que almacena lo que retorna modulo2
@@ -98,7 +98,7 @@ def dw_reporte():
 @app.route('/contacto')
 def contacto():
     return render_template('contacto.html')
-    
+
 # Carpeta de subida
 app.config['UPLOAD_FOLDER'] = "static/archivos"
 
@@ -122,6 +122,12 @@ def uploader():
             return render_template('cargar-gv.html',msg=msg)
         elif tipo == 'ac':
             return render_template('cargar-ac.html',msg=msg)
+
+#muestra las palabras agresivas mas repetidas
+@app.route("/resultado-ac")
+def resultado_AC():
+    return render_template("reporte_mensajes.html",datos=res)
+
 
 # ctrl+shift+r para recargar sin cache
 if __name__ == '__main__':

@@ -20,7 +20,7 @@ import os
 from flask import render_template, make_response
 from fpdf import Template
 def iniciar():
-    
+
     export=[]
     train = pd.read_csv('./static/archivos/train_aggressiveness.csv', encoding='utf-8')
     df = train.copy()
@@ -86,7 +86,7 @@ def iniciar():
     df['Determinante'] = df['prediccion'].apply(lambda prediccion:'No agresivo' if prediccion ==0 else 'Agresivo')
     with open('text_classifier', 'wb') as picklefile:
         pickle.dump(model,picklefile)
-    
+
     #with open('text_classifier', 'rb') as training_model:
     #    model = pickle.load(training_model)
     # print(df.head(15))
@@ -96,7 +96,7 @@ def iniciar():
     conv_users = []
     try:
         f = open('./static/archivos/archivo.json', encoding="utf8")
-        
+
         # returns JSON object as
         # a dictionary
         data = json.load(f)
@@ -107,12 +107,12 @@ def iniciar():
             # print(i['text'])
             mensajes.append(i)
 
-        
-            
+
+
         # print(len(mensajes))
         cont = 0
         # print(mensajes)
-        
+
         for i in mensajes:
             if i['text'] == "":
                 mensajes.pop(cont)
@@ -169,7 +169,7 @@ def iniciar():
         cantidad = 0
         totalmsj = 0
         # msj_agr = []
-    
+
     usuarios_agresivos=[]
     # recorremos la lista de mensajes agresivos
     for e in mensajes_agresivos:
@@ -194,7 +194,7 @@ def iniciar():
                 o.id = f['from_id']
                 break
         print('Objeto ',e, 'creado')
-    
+
     cont = 0
     # recorremos la lista de msj agresivos
     for d in mensajes_agresivos:
@@ -204,7 +204,7 @@ def iniciar():
             if d['from'] == h.nombre:
                 # se aumenta en uno la cantidad de msj agr
                 h.cantidad+=1
-    
+
     print('Users')
     # recorremos la lista de objetos
     for h in users:
@@ -221,24 +221,24 @@ def iniciar():
     interna.append(mensajes_no_agresivos)
     interna.append(users)
     export.append(interna)
-    
-    
+
+
     listadic=[]
-    for persona in users:  
+    for persona in users:
         diccionario = {'nombre' : persona.nombre, 'id' : persona.id, 'nma': persona.cantidad, 'msjt': persona.totalmsj }
         listadic.append(diccionario)
-    
+
     #env = Environment(loader=FileSystemLoader("templates"))
     #template= env.get_template("reporte-dw.html")
 
-    
+
     #html = render_template('reporte-dw.html')
     #response = make_response(pdf)
     #response.headers["Content-Type"] = "application/pdf"
     #response.headers["Content-Disposition"] = "inline; filename=output.pdf"
     #here we instantiate the template and define the HEADER
-    
-   
+
+
     #and now we render the page
     blockUsers = []
     userSlice  = slice(3)
@@ -246,7 +246,7 @@ def iniciar():
         if o.cantidad >= 2:
             blockUsers.append(o)
             #bloqueaUsers= blockUsers[userSlice]
-    
+
     #print(bloqueaUsers)
 
     #resultado[0][3]
@@ -255,14 +255,16 @@ def iniciar():
         for q in mensajes_agresivos:
             if q['from']==w.nombre:
                 msjAgrUs.append(q['text'])
-    
+
 
     #print(msjAgrUs)
-    
+
     return mensajes_agresivos, conv_users, mensajes, mensajes_no_agresivos, users,usuarios_agresivos,blockUsers,msjAgrUs
 '''
 import json
 import joblib
+import re
+from collections import Counter
 
 model=joblib.load('model.pkl')
 vect=joblib.load('vectorizer.pkl')
@@ -274,7 +276,7 @@ def iniciar():
 
     try:
         f = open('./static/archivos/archivo.json', encoding="utf8")
-        
+
         # returns JSON object as
         # a dictionary
         data = json.load(f)
@@ -285,12 +287,12 @@ def iniciar():
             # print(i['text'])
             mensajes.append(i)
 
-        
-            
+
+
         # print(len(mensajes))
         cont = 0
         # print(mensajes)
-        
+
         for i in mensajes:
             if i['text'] == "":
                 mensajes.pop(cont)
@@ -327,7 +329,7 @@ def iniciar():
         cantidad = 0
         totalmsj = 0
         # msj_agr = []
-    
+
     usuarios_agresivos=[]
     # recorremos la lista de mensajes agresivos
     for e in mensajes_agresivos:
@@ -352,7 +354,7 @@ def iniciar():
                 o.id = f['from_id']
                 break
         print('Objeto ',e, 'creado')
-    
+
     cont = 0
     # recorremos la lista de msj agresivos
     for d in mensajes_agresivos:
@@ -362,7 +364,7 @@ def iniciar():
             if d['from'] == h.nombre:
                 # se aumenta en uno la cantidad de msj agr
                 h.cantidad+=1
-    
+
     print('Users')
     # recorremos la lista de objetos
     for h in users:
@@ -372,24 +374,24 @@ def iniciar():
         for q in users:
             if p['from'] == q.nombre:
                 q.totalmsj+=1
-    
-    
+
+
     listadic=[]
-    for persona in users:  
+    for persona in users:
         diccionario = {'nombre' : persona.nombre, 'id' : persona.id, 'nma': persona.cantidad, 'msjt': persona.totalmsj }
         listadic.append(diccionario)
-    
+
     #env = Environment(loader=FileSystemLoader("templates"))
     #template= env.get_template("reporte-dw.html")
 
-    
+
     #html = render_template('reporte-dw.html')
     #response = make_response(pdf)
     #response.headers["Content-Type"] = "application/pdf"
     #response.headers["Content-Disposition"] = "inline; filename=output.pdf"
     #here we instantiate the template and define the HEADER
-    
-   
+
+
     #and now we render the page
     blockUsers = []
     userSlice  = slice(3)
@@ -397,7 +399,7 @@ def iniciar():
         if o.cantidad >= 2:
             blockUsers.append(o)
             #bloqueaUsers= blockUsers[userSlice]
-    
+
     #print(bloqueaUsers)
 
     #resultado[0][3]
@@ -406,8 +408,20 @@ def iniciar():
         for q in mensajes_agresivos:
             if q['from']==w.nombre:
                 msjAgrUs.append(q['text'])
-    
+
 
     #print(msjAgrUs)
 
-    return mensajes_agresivos, conv_users, mensajes, mensajes_no_agresivos, users,usuarios_agresivos,blockUsers,msjAgrUs
+    #mensajes mas utilizados
+    listaRep = []
+    for m in mensajes_agresivos:
+        texto = re.findall('\w+',m['text'])
+        for l in texto:
+            if len(l) > 5:
+                listaRep.append(l)
+
+    contador = Counter(listaRep)
+    mas_rep = contador.most_common(2)
+
+
+    return mensajes_agresivos, conv_users, mensajes, mensajes_no_agresivos, users,usuarios_agresivos,blockUsers,msjAgrUs,mas_rep

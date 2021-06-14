@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+    <title>Reporte</title>
+</head>
+<body>
+     <!--Empieza barra de navegación (navbar)-->
+     <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">Inicio</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="eleccion">Analizar <span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+              <ul class="navbar-nav mr-auto right">
+                <li class="nav-item active">
+                  <a class="nav-link" href="acerca">Acerca <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="contacto">Contacto <span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    </header>
+    <!--contenedor de la hora de la convesacion parte de nadia -->
+    <br>
+    <h2 class="title">Resultados del anàlisis </h2>
+    <br><br>
+    <h4 class="title">Visualización de los mensajes agresivos </h4>
+    <br>
+    <!--container es la caja general-->
+    <main class="resultado-horarios">
+             <div class="result_horarios">
+               <p class="formato_al_texto"> Rango de horario  de la convesacion <br>
+                <p class="fondo_hora">      12:00 -- TARDE -- 17:59  </p>
+                                            06:00 -- MAÑANA -- 11:59<br>
+                                            18:00 -- NOCHE -- 23:59<br>
+               </p>
+           </div>
+             </main>
+                <br><br>
+                <!--contenedor de los mensajes agresivos parte de melisa -->
+                     <br>
+                       <h2 class="title">Palabras que màs repiten  </h2>
+                        <br>
+                            <!--container es la caja general-->
+                               <main class="resultado-horarios">
+                                  <div class="result_horarios">
+                                    {%for e in datos:%}
+                                   <p class="formato_al_texto">
+                                     {%for m in e[8]:%}
+                                    <span>{{m}}</span><br>
+                                     {%endfor%}
+                                  </p>
+                                     {%endfor%}
+                                </div>
+
+                             </main>
+                            <br><br>
+
+                                   <!--contenedor de la grafica parte tania  -->
+
+                                              <h2 class="title"> Distribuciòn de mensajes </h2>
+                                              <br>
+                                                 <!--container es la caja general-->
+                                                     <main class="resultado-horarios">
+                                                               <div class="result_horarios">
+                                                        <p class="formato_al_texto"> Rango de horario  de la convesacion</p>
+                                                        </div>
+                                                     </main>
+                                                     <br><br>
+
+                                                     <!--Termina seccion de contacto-->
+              </body>
+        </html>
